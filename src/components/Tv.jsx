@@ -4,8 +4,10 @@ import { Tvcard } from "./Tvcard";
 import { Pagination } from "./Pagination";
 
 export function Tv() {
+
   const [tv, setTv] = useState([]); // Holds the fetched TV show data
   const [pageNo, setPageNo] = useState(1);
+
   const handlePagePrev = ()=>{
     if(pageNo==1){
       setPageNo(pageNo)
@@ -14,6 +16,7 @@ export function Tv() {
       setPageNo(pageNo-1)
     }
   }
+  
   const handlePageNext = ()=>{
     setPageNo(pageNo+1)
   }

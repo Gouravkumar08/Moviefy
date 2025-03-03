@@ -6,8 +6,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Banner } from "./components/Banner";
 import { TvBanner } from "./components/TvBanner";
 import { Tv } from "./components/Tv";
+import { useState } from "react";
+import { useEffect } from "react";
 
-function App() {
+function App(movieObj) {
+  let [watchlist, setWatchlist] = useState([]);
+  let handleaddtowatchlist = (movieObj) => {
+    let newwatchlist = [...watchlist, movieObj];
+    setWatchlist(newwatchlist);
+    console.log(newwatchlist);
+  };
+  const removefromwatchlist = (movieObj) => {
+    setWatchlist((prevWatchlist) =>
+      prevWatchlist.filter((movie) => movie.id !== movieObj.id)
+    );
+  };
+  useEffect(() => {
+    console.log("Updated Watchlist:", watchlist);
+  }, [watchlist]); // Logs whenever watchlist updates
   return (
     <>
       <BrowserRouter>
@@ -18,7 +34,7 @@ function App() {
             element={
               <>
                 <Banner />
-                <Movies />
+                <Movies watchlist={watchlist}handleaddtowatchlist={handleaddtowatchlist} removefromwatchlist={removefromwatchlist} />
               </>
             }
           />
@@ -31,7 +47,7 @@ function App() {
               </>
             }
           />
-          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/watchlist" element={<Watchlist watchlist={watchlist} movieObj={movieObj}/>} />
         </Routes>
       </BrowserRouter>
     </>
