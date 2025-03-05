@@ -13,17 +13,27 @@ function App(movieObj) {
   let [watchlist, setWatchlist] = useState([]);
   let handleaddtowatchlist = (movieObj) => {
     let newwatchlist = [...watchlist, movieObj];
+    localStorage.setItem("movieslist", JSON.stringify(newwatchlist));
     setWatchlist(newwatchlist);
     console.log(newwatchlist);
   };
   const removefromwatchlist = (movieObj) => {
-    setWatchlist((prevWatchlist) =>
-      prevWatchlist.filter((movie) => movie.id !== movieObj.id)
-    );
+    setWatchlist((prevWatchlist) => {
+      const updatedWatchlist = prevWatchlist.filter(
+        (movie) => movie.id !== movieObj.id
+      );
+      localStorage.setItem("movieslist", JSON.stringify(updatedWatchlist)); // Update localStorage
+      return updatedWatchlist;
+    });
   };
+
   useEffect(() => {
-    console.log("Updated Watchlist:", watchlist);
-  }, [watchlist]); // Logs whenever watchlist updates
+    let moviesfromlocalstorage = localStorage.getItem("movieslist");
+    if (!moviesfromlocalstorage) {
+      return;
+    }
+    setWatchlist(JSON.parse(moviesfromlocalstorage));
+  }, []);
   return (
     <>
       <BrowserRouter>
@@ -34,7 +44,11 @@ function App(movieObj) {
             element={
               <>
                 <Banner />
-                <Movies watchlist={watchlist}handleaddtowatchlist={handleaddtowatchlist} removefromwatchlist={removefromwatchlist} />
+                <Movies
+                  watchlist={watchlist}
+                  handleaddtowatchlist={handleaddtowatchlist}
+                  removefromwatchlist={removefromwatchlist}
+                />
               </>
             }
           />
@@ -43,11 +57,25 @@ function App(movieObj) {
             element={
               <>
                 <TvBanner />
-                <Tv />
+                <Tv
+                  watchlist={watchlist}
+                  handleaddtowatchlist={handleaddtowatchlist}
+                  removefromwatchlist={removefromwatchlist}
+                />
               </>
             }
           />
-          <Route path="/watchlist" element={<Watchlist watchlist={watchlist} movieObj={movieObj}/>} />
+          <Route
+            path="/watchlist"
+            element={
+              <Watchlist
+                watchlist={watchlist}
+                movieObj={movieObj}
+                setWatchlist={setWatchlist}
+                removefromwatchlist={removefromwatchlist}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>

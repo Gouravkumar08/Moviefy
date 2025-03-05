@@ -1,22 +1,29 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 export default function Moviecard({
   movieObj,
   poster_path,
   title,
   handleaddtowatchlist,
   removefromwatchlist,
+  watchlist, // Add watchlist as a prop
 }) {
   const [liked, setLiked] = useState(false);
 
   const handleClick = () => {
     if (liked) {
-      removefromwatchlist(movieObj); // Remove from watchlist if already liked
+      removefromwatchlist(movieObj); // Remove from watchlist
     } else {
-      handleaddtowatchlist(movieObj); // Add to watchlist if not liked
+      handleaddtowatchlist(movieObj); // Add to watchlist
     }
     setLiked(!liked); // Toggle liked state
   };
+
+  // Update liked state based on watchlist
+  useEffect(() => {
+    const isLiked = watchlist.some((item) => item.id === movieObj.id);
+    setLiked(isLiked);
+  }, [watchlist]); // Re-run effect when watchlist changes
 
   return (
     <div

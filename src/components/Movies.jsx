@@ -49,6 +49,7 @@ export function Movies({
               title={movieObj.title}
               handleaddtowatchlist={handleaddtowatchlist}
               removefromwatchlist={removefromwatchlist}
+              watchlist={watchlist}
             />
           );
         })}
