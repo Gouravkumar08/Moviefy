@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Moviecard from "./Moviecard";
+import {Moviecard} from "./Moviecard";
 import { useEffect } from "react";
 import axios from "axios";
 import { Pagination } from "./Pagination";
@@ -39,6 +39,7 @@ export function Movies({
   return (
     <div className="p-5">
       <div className="text-2xl font-bold text-center m-5">Trending Movies</div>
+      
       <div className="flex flex-row items-end flex-wrap justify-center gap-8">
         {movies.map((movieObj) => {
           return (

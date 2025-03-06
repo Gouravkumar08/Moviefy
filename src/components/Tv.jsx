@@ -43,7 +43,7 @@ export function Tv({watchlist,
             key={tvObj.id}
             tvObj={tvObj}
             poster_path={tvObj.poster_path}
-            title={tvObj.title}
+            name={tvObj.name}
             watchlist = {watchlist}
             handleaddtowatchlist={handleaddtowatchlist}
             removefromwatchlist={removefromwatchlist}

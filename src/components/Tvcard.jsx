@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export function Tvcard({
   poster_path,
-  title,
+  name, // Changed from title to name
   tvObj,
   handleaddtowatchlist,
   removefromwatchlist,
@@ -41,7 +41,7 @@ export function Tvcard({
         {liked ? "❤" : "♡"}
       </div>
       <div className="text-white p-1 text-xl w-full text-center bg-gray-900/60 rounded-b-xl">
-        {title}
+        {name} {/* Changed from title to name */}
       </div>
     </div>
   );

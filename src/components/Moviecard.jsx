@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function Moviecard({
+export function Moviecard({
   movieObj,
   poster_path,
   title,
